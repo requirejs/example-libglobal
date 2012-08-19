@@ -3,11 +3,11 @@
 This is an example of building a JavaScript library with AMD modules and using
 requirejs while in dev, but then building a file for distribution that does
 not require an AMD loader. The built file will work either with browser globals
-or in an AMD loader.
+or with an AMD loader.
 
 The library also depends on two other libraries:
 
-* jQuery, which does register as an AMD library
+* jQuery, which registers as an AMD library.
 * underscore, which does not register as an AMD library. So the
 [requirejs shim config](http://requirejs.org/docs/api.html#config-shim) is used
 when loading underscore in an AMD setting.
@@ -18,6 +18,13 @@ underscore for the library. If the consumer uses an AMD loader, then the built
 file will ask for 'jquery' and 'underscore' as AMD dependencies. If the consumer
 just uses browser globals and script tags, the library will grab the `$` and
 `_` global variables and use them for the jQuery and underscore dependencies.
+
+The built library also does not include require.js in the file, but instead
+uses [almond](https://github.com/jrburke/almond), a small AMD API
+implementation, that allows the built file's internal modules to work. These
+internal modules and this version of almond are not visible outside the built
+file, just used internally by the built file for code organization and
+referencing.
 
 ## File structure
 
@@ -44,8 +51,8 @@ library.
 
 The r.js optimizer can be run in Node or Rhino. See the
 [r.js README](https://github.com/jrburke/r.js) for instructions on how to run
-the optimizer in Rhino. For running in Node, run this command from the
-directory containing this README:
+the optimizer in Rhino. For running in Node, run this command in the
+same directory as this README:
 
     node tools/r.js -o tools/build.js
 
