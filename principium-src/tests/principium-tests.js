@@ -1,19 +1,41 @@
-/*global require, define, test, expect, strictEqual */
+/*global require, define, test, expect, strictEqual, location */
 
-require.config({
-    baseUrl: '../lib',
-    paths: {
-        //Path relative to baseUrl
-        'principium': '../principium'
-    },
-    shim: {
-        'underscore': {
-            exports: '_'
+if (typeof require === 'function' && require.config) {
+    require.config({
+        baseUrl: '../lib',
+        paths: {
+            //Path relative to baseUrl
+            'principium': '../principium'
+        },
+        shim: {
+            'underscore': {
+                exports: '_'
+            }
         }
-    }
-});
+    });
 
-define(['principium', 'jquery'], function (principium, $) {
+    //Override if in "dist" mode
+    if (location.href.indexOf('-dist') !== -1) {
+        //Set location of principium to the dist location
+        require.config({
+            paths: {
+                'principium': '../../principium-dist/principium'
+            }
+        });
+    }
+}
+
+(function (root, factory) {
+    'use strict';
+
+    if (typeof define === 'function' && define.amd) {
+        // AMD.
+        define(['principium', 'jquery'], factory);
+    } else {
+        // Browser globals
+        factory(root.principium, root.jQuery);
+    }
+}(this, function (principium, $) {
     'use strict';
 
     test('version test', function () {
@@ -29,5 +51,4 @@ define(['principium', 'jquery'], function (principium, $) {
             'Harry &amp; Sally',
             'Ampersand converted');
     });
-
-});
+}));
