@@ -5,7 +5,7 @@
     },
     "include": ["../tools/almond", "principium"],
     "exclude": ["jquery", "underscore"],
-    "out": "../../principium-dist/principium.js",
+    "out": "../dist/principium.js",
     "wrap": {
         "startFile": "wrap.start",
         "endFile": "wrap.end"

@@ -19,7 +19,7 @@ if (typeof require === 'function' && require.config) {
         //Set location of principium to the dist location
         require.config({
             paths: {
-                'principium': '../../principium-dist/principium'
+                'principium': '../dist/principium'
             }
         });
     }
