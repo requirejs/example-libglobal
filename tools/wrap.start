@@ -8,6 +8,6 @@
         // Browser globals
         root.principium = factory(root.$, root._);
     }
-}(this, function ($, _) {
+}(window, function ($, _) {
 
 
